@@ -1,0 +1,11 @@
+
+<div class="chart-container border rounded-lg p-6 px-5 mt-6">
+  <h1>Water Level Fluctuations at Different Geosites Over Time</h1>
+  <div >
+    <canvas baseChart
+            [datasets]="scatterChartData"
+            [options]="scatterChartOptions"
+            [type]="scatterChartType">
+    </canvas>
+  </div>
+</div>

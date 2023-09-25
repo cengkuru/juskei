@@ -1,0 +1,171 @@
+
+<div class="mx-auto max-w-7xl py-3 sm:px-6 lg:px-8">
+  <div class="bg-white py-6 sm:py-6">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+      <div>
+        <div class="sm:hidden">
+          <!-- Mobile view -->
+          <label for="tabs">Select a tab</label>
+          <select id="tabs"
+                  name="tabs"
+                  class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  (change)="setActiveTab($event)">
+            <option *ngFor="let tab of ['Bore hole patterns ', 'Temperature', 'Rainfall']"
+                    [selected]="isTabActive(tab)">
+              {{tab}}
+            </option>
+          </select>
+
+        </div>
+
+        <div class="hidden sm:block">
+          <!-- Desktop view -->
+          <nav class="isolate flex divide-x divide-gray-200 rounded-lg shadow" aria-label="Tabs">
+            <a *ngFor="let tab of ['Bore hole patterns ', 'Temperature', 'Rainfall']"
+               href="#"
+               (click)="setActiveTab(tab); $event.preventDefault()"
+               [class.text-gray-900]="isTabActive(tab)"
+               [class.text-gray-500]="!isTabActive(tab)"
+               class="rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
+               (click)="setActiveTab(tab)">
+              <span>{{tab}}</span>
+              <span aria-hidden="true" [class.bg-indigo-500]="isTabActive(tab)" class="absolute inset-x-0 bottom-0 h-0.5"></span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Placeholder content for each active tab -->
+        <div class="tab-content mt-4">
+          <div *ngIf="isTabActive('Bore hole patterns ')">
+            <div class="mx-auto max-w-2xl lg:max-w-none">
+
+              <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
+                <!-- WaterLevel KPI -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Average Water Level</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">12.49(m)</dd>
+                </div>
+
+                <!-- Rainfall KPI -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Total Rainfall</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">720(m)</dd>
+                </div>
+
+                <!-- Cross-Dataset KPI -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Water Level & Rainfall Correlation</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">0.75</dd>
+                </div>
+              </dl>
+
+            </div>
+            <div class="mt-6">
+              <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2 xl:gap-x-8   ">
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-rainfall-chart></app-rainfall-chart>
+                </li>
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-borehole-by-year-chart></app-borehole-by-year-chart>
+                </li>
+              </ul>
+
+              <div class="overflow-hidden mt-6 rounded-xl border border-gray-200 p-6">
+                <app-borehole-chart></app-borehole-chart>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="isTabActive('Temperature')">
+
+            <div class="mx-auto max-w-2xl lg:max-w-none">
+
+              <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
+
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Average Temperature</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">26.3(°C)</dd>
+                </div>
+
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Temperature Variability</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">5.2(°C)</dd>
+                </div>
+
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Extreme Temperature Events</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">3</dd>
+                </div>
+              </dl>
+
+            </div>
+            <div class="mt-6">
+              <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2 xl:gap-x-8   ">
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-temperature-chart></app-temperature-chart>
+                </li>
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-temperature-high-low-chart></app-temperature-high-low-chart>
+                </li>
+              </ul>
+
+              <div>
+                <app-average-temperature-by-site></app-average-temperature-by-site>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="isTabActive('Rainfall')">
+            <div class="mx-auto max-w-2xl lg:max-w-none">
+
+              <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
+
+                <!-- Total Monthly Rainfall -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Total Monthly Rainfall</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">720(mm)</dd>
+                </div>
+
+                <!-- Rainfall Intensity -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Rainfall Intensity</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">35(mm/hr)</dd>
+                </div>
+
+                <!-- Days of Rainfall -->
+                <div class="flex flex-col bg-teal-600/5 p-8">
+                  <dt class="text-sm font-semibold leading-6 text-gray-600">Days of Rainfall</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">14</dd>
+                </div>
+
+              </dl>
+
+            </div>
+
+            <div class="mt-6">
+              <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-2 xl:gap-x-8   ">
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-rainfall-by-site-chart></app-rainfall-by-site-chart>
+                </li>
+                <li class="overflow-hidden rounded-xl border border-gray-200 p-6">
+                  <app-rainfall-highest-lowest-by-site></app-rainfall-highest-lowest-by-site>
+                </li>
+              </ul>
+
+              <div>
+                <app-rainfall-average-by-site></app-rainfall-average-by-site>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

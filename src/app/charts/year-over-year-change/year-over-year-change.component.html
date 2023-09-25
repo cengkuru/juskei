@@ -1,0 +1,11 @@
+<div style="display: block;">
+  <h2>Year-over-Year Change in Water Levels</h2>
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [type]="'bar'"
+          [plugins]="barChartPlugins">
+  </canvas>
+</div>
