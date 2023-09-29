@@ -26,6 +26,12 @@ import { RainfallAverageBySiteComponent } from './charts/rainfall-average-by-sit
 import { TemperatureChartComponent } from './charts/temperature-chart/temperature-chart.component';
 import { TemperatureHighLowChartComponent } from './charts/temperature-high-low-chart/temperature-high-low-chart.component';
 import { AverageTemperatureBySiteComponent } from './charts/average-temperature-by-site/average-temperature-by-site.component';
+import { BoreholeVsRainfallComponent } from './charts/boreholes/borehole-vs-rainfall/borehole-vs-rainfall.component';
+import { BoreholeLevelVsTemperatureComponentComponent } from './charts/boreholes/borehole-level-vs-temperature-component/borehole-level-vs-temperature-component.component';
+import { BoreholeLevelsByYearComponentComponent } from './charts/boreholes/borehole-levels-by-year-component/borehole-levels-by-year-component.component';
+import { BoreholeTableComponent } from './charts/boreholes/borehole-table/borehole-table.component';
+import { AverageTemperatureComponent } from './charts/temperature/average-temperature/average-temperature.component';
+import { TemperatureTableComponent } from './charts/temperature/temperature-table/temperature-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +55,13 @@ import { AverageTemperatureBySiteComponent } from './charts/average-temperature-
     RainfallAverageBySiteComponent,
     TemperatureChartComponent,
     TemperatureHighLowChartComponent,
-    AverageTemperatureBySiteComponent
+    AverageTemperatureBySiteComponent,
+    BoreholeVsRainfallComponent,
+    BoreholeLevelVsTemperatureComponentComponent,
+    BoreholeLevelsByYearComponentComponent,
+    BoreholeTableComponent,
+    AverageTemperatureComponent,
+    TemperatureTableComponent
   ],
   imports: [
     BrowserModule,

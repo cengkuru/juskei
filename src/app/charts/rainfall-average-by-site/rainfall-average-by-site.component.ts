@@ -16,7 +16,7 @@ export class RainfallAverageBySiteComponent implements OnInit {
 
     this.chartOptions = {
       title: {
-        text: 'Rain Check: Tracking the Ups and Downs of Yearly Rainfall Across Cities',
+        text: 'Rain Check: Tracking the Ups and Downs of Yearly Rainfall Across Stations',
         subtext: 'Shows an increasing trend in rainfall over years' // Narrative
       },
       tooltip: {
@@ -36,12 +36,12 @@ export class RainfallAverageBySiteComponent implements OnInit {
             action = 'This is a dry year; consider water-saving measures.';
           }
 
-          return `In ${params[0].name}, Johannesburg received ${val}mm of rainfall. ${action}`;
+          return `In ${params[0].name}, JHB BOT TUINE received ${val}mm of rainfall. ${action}`;
         }
       },
 
       legend: {
-        data: ['Johannesburg', 'Pretoria', 'Durban'],
+        data: ['JHB BOT TUINE', 'HARTEBEESPOORT DAM', 'LANSERIA WO'],
         type: 'scroll',
         orient: 'vertical',
         right: 10,
@@ -57,19 +57,19 @@ export class RainfallAverageBySiteComponent implements OnInit {
       },
       series: [
         {
-          name: 'Johannesburg',
+          name: 'JHB BOT TUINE',
           type: 'line',
           data: [820, 932, 901, 934],
           color: '#32bac9'
         },
         {
-          name: 'Pretoria',
+          name: 'HARTEBEESPOORT DAM',
           type: 'line',
           data: [720, 832, 801, 834],
           color: '#00679e'
         },
         {
-          name: 'Durban',
+          name: 'LANSERIA WO',
           type: 'line',
           data: [620, 732, 701, 734],
           color: '#aba89d'

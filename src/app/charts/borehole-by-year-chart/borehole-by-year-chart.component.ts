@@ -43,7 +43,7 @@ export class BoreholeByYearChartComponent implements OnInit, OnDestroy {
       },
       xAxis: {
         type: 'category',
-        data: Array.from({length: 10}, (_, i) => 2014 + i),  // Adjusted to last 10 years
+        data: Array.from({length: 10}, (_, i) => 2014 + i),  // Adjusted to last 10 years ['2014',`2015`,`2016`,`2017`,`2018`,`2019`,`2020`,`2021`,`2022`,`2023`]
         axisLabel: {
           rotate: 45
         }
