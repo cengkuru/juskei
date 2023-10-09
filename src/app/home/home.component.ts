@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DataVizService} from "../services/dataVizService";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   activeTab: string = 'Bore hole patterns';  // Initialize the active tab
   tabs = [
     'Bore hole patterns',
@@ -65,4 +66,54 @@ export class HomeComponent {
   }
 
   protected readonly HTMLSelectElement = HTMLSelectElement;
+
+  constructor( private dataVizService: DataVizService) {
+  }
+
+
+  ngOnInit() {
+    this.initialiseData();
+  }
+
+  // intialize the
+  initialiseData() {
+    this.getBoreholeYearlyAverage();
+    this.getWaterLevelSummary();
+    this.getWaterLevelRainfallScatter();
+    this.getWaterLevelTempScatter();
+  }
+
+  // get water level summary from dataVizService
+  getWaterLevelSummary() {
+    return this.dataVizService.getWaterLevelSummary().subscribe((data: any[])=>{
+      console.log("Water Level Summary")
+      console.log(data);
+    });
+  }
+
+  // getBoreholeYearlyAverage from dataVizService
+  getBoreholeYearlyAverage() {
+    return this.dataVizService.getBoreholeYearly().subscribe((data: any[])=>{
+      console.log("Borehole Yearly Average")
+      console.log(data);
+    });
+  }
+
+  // getWaterLevelRainfallScatter
+  getWaterLevelRainfallScatter() {
+    return this.dataVizService.getWaterLevelRainfallScatter().subscribe((data: any[])=>{
+      console.log("Water Level Rainfall Scatter")
+      console.log(data);
+    });
+  }
+
+  // getWaterLevelTempScatter
+  getWaterLevelTempScatter() {
+    return this.dataVizService.getWaterLevelTempScatter().subscribe((data: any[])=>{
+      console.log("Water Level Temp Scatter")
+      console.log(data);
+    });
+  }
+
+
 }

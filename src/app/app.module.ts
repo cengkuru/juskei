@@ -32,6 +32,14 @@ import { BoreholeLevelsByYearComponentComponent } from './charts/boreholes/boreh
 import { BoreholeTableComponent } from './charts/boreholes/borehole-table/borehole-table.component';
 import { AverageTemperatureComponent } from './charts/temperature/average-temperature/average-temperature.component';
 import { TemperatureTableComponent } from './charts/temperature/temperature-table/temperature-table.component';
+import {ToastrModule} from "ngx-toastr";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpServiceInterceptor} from "./interceptors/HttpInterceptor/http-service.interceptor";
+import {OfflineInterceptor} from "./interceptors/HttpInterceptor/offline.interceptor";
+import {LoadingInterceptor} from "./interceptors/HttpInterceptor/loading.interceptor";
+import {LoggingInterceptor} from "./interceptors/HttpInterceptor/logging.interceptor";
+import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,11 +73,24 @@ import { TemperatureTableComponent } from './charts/temperature/temperature-tabl
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     NgChartsModule,
     LeafletModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: OfflineInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent,]
 })
 export class AppModule { }
