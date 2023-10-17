@@ -29,7 +29,6 @@ import { AverageTemperatureBySiteComponent } from './charts/average-temperature-
 import { BoreholeVsRainfallComponent } from './charts/boreholes/borehole-vs-rainfall/borehole-vs-rainfall.component';
 import { BoreholeLevelVsTemperatureComponentComponent } from './charts/boreholes/borehole-level-vs-temperature-component/borehole-level-vs-temperature-component.component';
 import { BoreholeLevelsByYearComponentComponent } from './charts/boreholes/borehole-levels-by-year-component/borehole-levels-by-year-component.component';
-import { BoreholeTableComponent } from './charts/boreholes/borehole-table/borehole-table.component';
 import { AverageTemperatureComponent } from './charts/temperature/average-temperature/average-temperature.component';
 import { TemperatureTableComponent } from './charts/temperature/temperature-table/temperature-table.component';
 import {ToastrModule} from "ngx-toastr";
@@ -40,6 +39,9 @@ import {LoadingInterceptor} from "./interceptors/HttpInterceptor/loading.interce
 import {LoggingInterceptor} from "./interceptors/HttpInterceptor/logging.interceptor";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BoreholeTableComponent} from "./charts/boreholes/borehole-table/borehole-table.component";
+import { WaterLevelsByMonthAndYearComponent } from './charts/boreholes/water-levels-by-month-and-year/water-levels-by-month-and-year.component';
+import { WeatherWaterLevelsComponent } from './charts/boreholes/weather-water-levels/weather-water-levels.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +71,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BoreholeLevelsByYearComponentComponent,
     BoreholeTableComponent,
     AverageTemperatureComponent,
-    TemperatureTableComponent
+    TemperatureTableComponent,
+    WaterLevelsByMonthAndYearComponent,
+    WeatherWaterLevelsComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true},
   ],
-  bootstrap: [AppComponent,]
+  bootstrap: [AppComponent,],
+  exports: [
+    BoreholeTableComponent
+  ]
 })
 export class AppModule { }

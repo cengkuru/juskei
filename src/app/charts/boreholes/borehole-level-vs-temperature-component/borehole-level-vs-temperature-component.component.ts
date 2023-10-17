@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import * as echarts from 'echarts';
 
 @Component({
@@ -7,6 +7,7 @@ import * as echarts from 'echarts';
   styleUrls: ['./borehole-level-vs-temperature-component.component.scss']
 })
 export class BoreholeLevelVsTemperatureComponentComponent implements OnInit {
+  @Input() data: { year: number, avgWaterLevel: number, avgTemp: number }[] = [];
   chartOptions: any;
 
   constructor(private elementRef: ElementRef) {}
@@ -14,32 +15,70 @@ export class BoreholeLevelVsTemperatureComponentComponent implements OnInit {
   ngOnInit() {
     const myChart = echarts.init(this.elementRef.nativeElement.querySelector('#boreholeVsTemperature'));
 
+    const years = this.data.map(item => item.year.toString());
+    const avgWaterLevels = this.data.map(item => item.avgWaterLevel);
+    const avgTemps = this.data.map(item => item.avgTemp);
+
     this.chartOptions = {
       title: {
-        text: 'Borehole Levels vs Temperature',
-        subtext: 'Scatter plot illustrating the relationship between temperature and borehole levels'
+        text: 'Relationship between temperature and borehole levels',
+
       },
       tooltip: {
-        trigger: 'item',
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          crossStyle: {
+            color: '#999'
+          }
+        },
         formatter: (params: any) => {
-          const val = params.data;
-          return `Temperature: ${val[0]}°C<br/>Borehole Level: ${val[1]}m`;
+          const val = params[0];
+          return `Year: ${val.name}<br/>Avg Water Level: ${val.data}m<br/>Avg Temp: ${params[1].data}°C`;
         }
       },
       xAxis: {
-        name: 'Temperature (°C)',
-        type: 'value'
+        name: 'Year',
+        type: 'category',
+        data: years
       },
-      yAxis: {
-        name: 'Borehole Level (m)',
-        type: 'value'
+      yAxis: [
+        {
+          name: 'Average Water Level (m)',
+          type: 'value'
+        },
+        {
+          name: 'Average Temperature (°C)',
+          type: 'value',
+          position: 'right'
+        }
+      ],
+      series: [
+        {
+          name: 'Avg Water Level',
+          data: avgWaterLevels,
+          type: 'bar',
+          color: '#f68512'  // vivid-orange
+        },
+        {
+          name: 'Avg Temp',
+          data: avgTemps,
+          type: 'line',
+          yAxisIndex: 1,
+          color: '#3f51b5',  // vivid-blue
+
+
+        }
+      ],
+      legend: {
+        data: ['Avg Water Level', 'Avg Temp',],
+        textStyle: {
+          color: '#000',
+          bottom: '0'
+
+        },
+        top: '10%',
       },
-      series: [{
-        symbolSize: 10,
-        data: [[15, 34], [20, 90], [25, 50], /* ...your data */],
-        type: 'scatter',
-        color: '#f68512'  // vivid-orange
-      }],
       responsive: true,
       toolbox: {
         feature: {
